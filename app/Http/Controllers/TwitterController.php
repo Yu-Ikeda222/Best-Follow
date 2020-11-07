@@ -11,14 +11,14 @@ class TwitterController extends Controller
         //dd($friends);
         $people = "@Pythonist19";
         $search_user = \Twitter::get('friends/ids', ['screen_name'=> $people]);
-        //dd($search_user);
+      dd($search_user);
         $cursor = $search_user->next_cursor;
-        $next = \Twitter::get('friends/ids', ['screen_name'=> $people, 'cursor'=> "$cursor"]);
-       dd($next);
+       $next = \Twitter::get('friends/ids', ['screen_name'=> $people, 'cursor'=> "$cursor"]);
+       //dd($next);
         $token = 'AAAAAAAAAAAAAAAAAAAAAEtuJQEAAAAAJm6MdfCszsvdQrRMEjZUMhaNgWA%3DdyPIOIyeYD0qfHTCBMuO3awbe6Qyrb5mRMIm4Xpb1nMD3Ayjlp';
         
-        $responses = \Http::withToken($token)->get('https://twitter.com/yu_maehe222');
-        // dd($responses);
+        $responses = \Http::withToken($token)->get('https://api.twitter.com/2/users/114111076');
+        dd($responses);
         // foreach($responses as $response){
         //     $datas = [];
         //     $datas = $response->data;
