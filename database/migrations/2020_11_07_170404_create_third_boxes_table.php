@@ -15,7 +15,7 @@ class CreateThirdBoxesTable extends Migration
     {
         Schema::create('third_boxes', function (Blueprint $table) {
             $table->id();
-            $table->integer('friends_id');
+            $table->string('friends_id');
             $table->timestamps();
         });
     }

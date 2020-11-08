@@ -13,7 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/showFriends' ,'TwitterController@showFriends');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/' ,'TwitterController@index')->name('index');
+Route::post('/store','TwitterController@store')->name('store');
+Route::get('/show','TwitterController@show')->name('show');
+
+
+Route::get('showFriends','TwitterController@showFriends');

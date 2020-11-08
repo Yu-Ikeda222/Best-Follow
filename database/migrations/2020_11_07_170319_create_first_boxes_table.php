@@ -15,7 +15,7 @@ class CreateFirstBoxesTable extends Migration
     {
         Schema::create('first_boxes', function (Blueprint $table) {
             $table->id();
-            $table->integer('friends_id');
+            $table->string('friends_id');
             $table->timestamps();
         });
     }
