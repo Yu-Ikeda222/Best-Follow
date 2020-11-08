@@ -7,4 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class ThirdBox extends Model
 {
     protected $table = 'third_boxes';
+
+    protected $fillable = ['friends_id'];
 }

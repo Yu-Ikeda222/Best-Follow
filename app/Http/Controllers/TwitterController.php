@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\FirstBox;
 use App\SecondBox;
 use App\ThirdBox;
+use App\Friend;
 
 class TwitterController extends Controller
 {
@@ -55,34 +56,51 @@ class TwitterController extends Controller
     }
 
   //各データベースのデータを消去ののち、新しくデータを保存
+    \DB::table('friends')->truncate();
     //First
-    \DB::table('first_boxes')->truncate();
+    //\DB::table('first_boxes')->truncate();
     foreach($first_friend_ids as $first_friend_id){
-      $first = new FirstBox;
-      $first->friends_id = $first_friend_id;
-      $first->save();
+      $first_data = new Friend;
+      $first_data->friends_id = $first_friend_id;
+      $first_data->save();
     }
     //Second
-    \DB::table('second_boxes')->truncate();
+    //\DB::table('second_boxes')->truncate();
     foreach($second_friend_ids as $second_friend_id){
-      $second = new SecondBox;
-      $second->friends_id = $second_friend_id;
-      $second->save();
+      $second_data = new Friend;
+      $second_data->friends_id = $second_friend_id;
+      $second_data->save();
     }
     
     //Third
-    \DB::table('third_boxes')->truncate();
+   // \DB::table('third_boxes')->truncate();
     foreach($third_friend_ids as $third_friend_id){
-      $third = new ThirdBox;
-      $third->friends_id = $third_friend_id;
-      $third->save();
+      $third_data = new Friend;
+      $third_data->friends_id = $third_friend_id;
+      $third_data->save();
     }
     
+    return redirect()->route('show', ['first' => $first, 'second' => $second, 'third' => $third]);
 
   }
 
 
   public function show(){
+
+    $users = \DB::table('first_boxes')
+    ->selectRaw('friends_id')
+    ->groupBy('friends_id')
+    ->having(\DB::raw('count(friends_id)'), '>', 2)
+    ->get();
+  // //テーブルを結合して比較 
+  //   $users = \DB::table('first_boxes')
+  //   //->leftjoin('second_boxes', 'first_boxes.friends_id', '=', 'second_boxes.friends_id')
+  //   ->rightjoin('third_boxes', 'first_boxes.friends_id', '=', 'third_boxes.friends_id')
+  //   ->select('first_boxes.*')
+  //   // ->groupBy('friends_id')
+  //  // ->having('friends_id', '>', 2)
+  //   ->get();
+     dd($users);
     return view('show');
   }
     public function showFriends(){
@@ -98,8 +116,8 @@ class TwitterController extends Controller
         
     //$token = 'AAAAAAAAAAAAAAAAAAAAAEtuJQEAAAAAJm6MdfCszsvdQrRMEjZUMhaNgWA%3DdyPIOIyeYD0qfHTCBMuO3awbe6Qyrb5mRMIm4Xpb1nMD3Ayjlp';
     $token = env('TWITTER_BEARER_TOKEN');  
-    $responses = \Http::withToken($token)->get('https://api.twitter.com/2/users/1149298012365049856');
-      //  dd($responses);
+    $responses = \Http::withToken($token)->get('https://api.twitter.com/2/users/137857547');
+    //dd($responses);
         // foreach($responses as $response){
         //     $datas = [];
         //     $datas = $response->data;

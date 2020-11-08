@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SecondBox extends Model
+class Friend extends Model
 {
-    protected $table = 'second_boxes';
+    protected $table = 'friends';
 
     protected $fillable = ['friends_id'];
 }
