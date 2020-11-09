@@ -49,45 +49,56 @@ class TwitterController extends Controller
     $third_friend_ids = $third_friend_data->ids;
     $third_cursor = $third_friend_data->next_cursor;
     while($third_cursor !== 0){
-      $third_next_data = \Twwiter::get('friends/ids', ['screen_name'=> $second, 'cursor'=> $third_cursor]);
-      $third_next_ids = $second_next_data->ids;
+      $third_next_data = \Twitter::get('friends/ids', ['screen_name'=> $third, 'cursor'=> $third_cursor]);
+      $third_next_ids = $third_next_data->ids;
       $third_friend_ids = array_merge($third_friend_ids, $third_next_ids);
       $third_cursor = $third_next_data->next_cursor;
     }
 
+ //各データをmerge
+ $first_second_ids = array_merge($first_friend_ids, $second_friend_ids);
+ $friend_ids = array_merge($first_second_ids, $third_friend_ids);
+
   //各データベースのデータを消去ののち、新しくデータを保存
     \DB::table('friends')->truncate();
-    //First
-    //\DB::table('first_boxes')->truncate();
-    foreach($first_friend_ids as $first_friend_id){
-      $first_data = new Friend;
-      $first_data->friends_id = $first_friend_id;
-      $first_data->save();
-    }
-    //Second
-    //\DB::table('second_boxes')->truncate();
-    foreach($second_friend_ids as $second_friend_id){
-      $second_data = new Friend;
-      $second_data->friends_id = $second_friend_id;
-      $second_data->save();
+    foreach($friend_ids as $friend_id){
+      $friend = new Friend;
+      $friend->friends_id = $friend_id;
+      $friend->save();
     }
     
-    //Third
-   // \DB::table('third_boxes')->truncate();
-    foreach($third_friend_ids as $third_friend_id){
-      $third_data = new Friend;
-      $third_data->friends_id = $third_friend_id;
-      $third_data->save();
-    }
+    return redirect()->route('show', ['friend' => $friend]);
+  //   //First
+  //   //\DB::table('first_boxes')->truncate();
+  //   foreach($first_friend_ids as $first_friend_id){
+  //     $first_data = new Friend;
+  //     $first_data->friends_id = $first_friend_id;
+  //     $first_data->save();
+  // //   }
+  //   //Second
+  //   //\DB::table('second_boxes')->truncate();
+  //   foreach($second_friend_ids as $second_friend_id){
+  //     $second_data = new Friend;
+  //     $second_data->friends_id = $second_friend_id;
+  //     $second_data->save();
+  //   }
     
-    return redirect()->route('show', ['first' => $first, 'second' => $second, 'third' => $third]);
+  //   //Third
+  //  // \DB::table('third_boxes')->truncate();
+  //   foreach($third_friend_ids as $third_friend_id){
+  //     $third_data = new Friend;
+  //     $third_data->friends_id = $third_friend_id;
+  //     $third_data->save();
+  //   }
+    
+  //   return redirect()->route('show', ['first' => $first, 'second' => $second, 'third' => $third]);
 
   }
 
 
   public function show(){
 
-    $users = \DB::table('first_boxes')
+    $ids = \DB::table('friends')
     ->selectRaw('friends_id')
     ->groupBy('friends_id')
     ->having(\DB::raw('count(friends_id)'), '>', 2)
@@ -100,7 +111,11 @@ class TwitterController extends Controller
   //   // ->groupBy('friends_id')
   //  // ->having('friends_id', '>', 2)
   //   ->get();
-     dd($users);
+
+     foreach($ids as $id){
+       $show_id = $id->friends_id;
+     }
+     
     return view('show');
   }
     public function showFriends(){
@@ -116,7 +131,7 @@ class TwitterController extends Controller
         
     //$token = 'AAAAAAAAAAAAAAAAAAAAAEtuJQEAAAAAJm6MdfCszsvdQrRMEjZUMhaNgWA%3DdyPIOIyeYD0qfHTCBMuO3awbe6Qyrb5mRMIm4Xpb1nMD3Ayjlp';
     $token = env('TWITTER_BEARER_TOKEN');  
-    $responses = \Http::withToken($token)->get('https://api.twitter.com/2/users/137857547');
+    $responses = \Http::withToken($token)->get('https://api.twitter.com/2/users/by');
     //dd($responses);
         // foreach($responses as $response){
         //     $datas = [];
