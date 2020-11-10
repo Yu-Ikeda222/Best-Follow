@@ -59,16 +59,55 @@ class TwitterController extends Controller
  $first_second_ids = array_merge($first_friend_ids, $second_friend_ids);
  $friend_ids = array_merge($first_second_ids, $third_friend_ids);
 
-  //各データベースのデータを消去ののち、新しくデータを保存
+//各データベースのデータを消去ののち、新しくデータを保存
     \DB::table('friends')->truncate();
     foreach($friend_ids as $friend_id){
       $friend = new Friend;
       $friend->friends_id = $friend_id;
       $friend->save();
     }
+
+//重複データの抽出
+if(isset($third)){
+  $number = 2;
+}else{
+  $number = 1;
+}
+$ids = \DB::table('friends')
+->selectRaw('friends_id')
+->groupBy('friends_id')
+->having(\DB::raw('count(friends_id)'), '>', $number)
+->get();
+
+//bladeに渡す変数用意    
+$users_data =[];
+$images =[];
+ foreach($ids as $id){
+   $show_id = $id->friends_id;
+   $user_data = \Twitter::get('users/show',['user_id' => $show_id]);
+   array_push($users_data, $user_data);
+  //  dd($image);
+ }
+
+ $first_data = $user_data = \Twitter::get('users/show',['screen_name' => $first]);
+ $second_data = $user_data = \Twitter::get('users/show',['screen_name' => $second]);
+ $third_data = $user_data = \Twitter::get('users/show',['screen_name' => $third]);
+ return view('show', [
+  'users_data' => $users_data, 
+  'first_data' => $first_data, 
+  'second_data' => $second_data, 
+  'third_data' => $third_data,
+  ]);
     
-    return redirect()->route('show', ['friend' => $friend]);
-  //   //First
+  }
+
+
+  public function show(){
+    return view('show');
+  }
+    public function showFriends(){
+
+//   //First
   //   //\DB::table('first_boxes')->truncate();
   //   foreach($first_friend_ids as $first_friend_id){
   //     $first_data = new Friend;
@@ -93,16 +132,7 @@ class TwitterController extends Controller
     
   //   return redirect()->route('show', ['first' => $first, 'second' => $second, 'third' => $third]);
 
-  }
 
-
-  public function show(){
-
-    $ids = \DB::table('friends')
-    ->selectRaw('friends_id')
-    ->groupBy('friends_id')
-    ->having(\DB::raw('count(friends_id)'), '>', 2)
-    ->get();
   // //テーブルを結合して比較 
   //   $users = \DB::table('first_boxes')
   //   //->leftjoin('second_boxes', 'first_boxes.friends_id', '=', 'second_boxes.friends_id')
@@ -111,14 +141,8 @@ class TwitterController extends Controller
   //   // ->groupBy('friends_id')
   //  // ->having('friends_id', '>', 2)
   //   ->get();
+  //'user.field'=> 'name','profile_image_url', 'username'
 
-     foreach($ids as $id){
-       $show_id = $id->friends_id;
-     }
-     
-    return view('show');
-  }
-    public function showFriends(){
       
         //$friends = \Twitter::get('friends/list');
         //dd($friends);
