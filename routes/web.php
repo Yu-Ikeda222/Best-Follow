@@ -22,3 +22,7 @@ Route::get('/show','TwitterController@show')->name('show');
 
 
 Route::get('showFriends','TwitterController@showFriends');
+Route::get('/array',function(){
+   return view('array');
+});
+Route::post('/array', 'TwitterController@array')->name('array');

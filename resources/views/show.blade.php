@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('content')
-<h1><a href="{{route('index')}}">Best-Follow</a></h1>
 <?php $data_number = count($users_data)?>
 <img src = <?php echo $first_data->profile_image_url;?>><?php echo $first_data->screen_name;?><br>
 <img src = <?php echo $second_data->profile_image_url;?>><?php echo $second_data->screen_name;?><br>
