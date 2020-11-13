@@ -41,6 +41,9 @@ class TwitterController extends Controller
 
         //SecondBoxのフレンド取得
         $second_friend_data = \Twitter::get('friends/ids', ['screen_name' => $second]);
+        if(isset($second_friend_data->errors)){
+            echo "ページを表示できません、打ち間違えていませんか？";
+        }
         $second_friend_ids = $second_friend_data->ids;
         $second_cursor = $second_friend_data->next_cursor;
         while ($second_cursor !== 0) {
@@ -63,7 +66,11 @@ class TwitterController extends Controller
 
         //重複データの抽出
         $first_second_ids = array_intersect($first_friend_ids, $second_friend_ids);
-        $friend_ids = array_intersect($first_second_ids, $third_friend_ids);
+        if(isset($third)){
+            $friend_ids = array_intersect($first_second_ids, $third_friend_ids);
+        }else{
+            $friend_ids = $first_second_ids;
+        }
 
         //bladeに渡す変数用意
         $users_data = [];
