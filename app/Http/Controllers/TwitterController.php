@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Facades\Twitter;
+
 use Illuminate\Http\Request;
 
 class TwitterController extends Controller
@@ -26,7 +26,7 @@ class TwitterController extends Controller
         $first = $request->first_box;
         $second = $request->second_box;
         $third = $request->third_box;
-
+        
         //FirstBoxのフレンドを取得(5000ずつ単位でcursorが生成されるので、cursorが０でない限りループ)
         $first_friend_data = \Twitter::get('friends/ids', ['screen_name' => $first]);
         $first_friend_ids = $first_friend_data->ids;

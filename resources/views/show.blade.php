@@ -3,49 +3,80 @@
 @section('content')
 
 {{--検索した元データ表示--}}
-@if(isset($first_data->errors))
-@else
-<img src = "{{$first_data->profile_image_url}}">
- "@" {{$first_data->screen_name}}
-<a href = "https://twitter.com/{{$first_data->screen_name}}">
-<img src = "{{asset('img/Twitter_Logo_Blue.png')}}" style = "width: 50px; height: 50px;">
-</a>
-<br>
-@endif
+<div class="input-container">
+  <div class="input-data">
+    @if(isset($first_data->errors))
+    @else
+    <div class="container">
+      <img src = "{{$first_data->profile_image_url}}">
+      <div class="origin">{{$first_data->name}}</div>
+      <a href = "https://twitter.com/{{$first_data->screen_name}}">
+      <img src = "{{asset('img/Twitter_Logo_Blue.png')}}" class ="logo">
+      </a>
+    </div>
+    <div class="origin-screen-name">
+    ＠{{$first_data->screen_name}}
+    </div>
+    @endif
+  </div>
 
-@if(isset($second_data->errors))
-@else
-<img src = "{{$second_data->profile_image_url}}">
-"@"{{$second_data->screen_name}}
-<a href = "https://twitter.com/{{$second_data->screen_name}}">
-<img src = "{{asset('img/Twitter_Logo_Blue.png')}}" style = "width: 50px; height: 50px;">
-</a>
-<br>
-@endif
+  <div class="input-data">
+    @if(isset($second_data->errors))
+    @else
+    <div class="container">
+      <img src = "{{$second_data->profile_image_url}}">
+      <div class="origin">{{$second_data->name}}</div>
+      <a href = "https://twitter.com/{{$second_data->screen_name}}">
+        <img src = "{{asset('img/Twitter_Logo_Blue.png')}}" class ="logo">
+      </a>
+    </div>
+    <div class="origin-screen-name">
+    ＠{{$second_data->screen_name}}
+    </div>
+    @endif
+  </div>
 
-@if(isset($third_data->errors))
-@else
-<img src = "{{$third_data->profile_image_url}}">
-"@"{{$third_data->screen_name}}
-<a href = "https://twitter.com/{{$third_data->screen_name}}">
-<img src = "{{asset('img/Twitter_Logo_Blue.png')}}" style = "width: 50px; height: 50px;">
-</a>
-<br>
+  <div class="input-data">
+    @if(isset($third_data->errors))
+    @else
+    <div class="container">
+      <img src = "{{$third_data->profile_image_url}}">
+      <div class="origin">{{$third_data->name}}</div>
+      <a href = "https://twitter.com/{{$third_data->screen_name}}">
+        <img src = "{{asset('img/Twitter_Logo_Blue.png')}}" class ="logo">
+      </a>
+    </div>
+    <div class="origin-screen-name">
+    ＠{{$third_data->screen_name}}
+    </div>
+    @endif
+  </div>
+</div>
 
-@endif
-
-<h2>の検索結果は<?php $data_number = count($users_data);echo $data_number; ?>人です</h2>
+<h2>検索結果は<?php $data_number = count($users_data);
+echo $data_number;?>人です</h2>
 
 {{--データの表示--}}
+<div class="display-container">
 @foreach($users_data as $user_data)
-<img src = "<?php echo $user_data->profile_image_url; ?>">
-{{$user_data->name}}<br>
-＠{{$user_data->screen_name}}<br>
-ツイート数：{{$user_data->statuses_count}}<br>
-フォロー数：{{$user_data->friends_count}}<br>
-フォロワー数：{{$user_data->followers_count}}<br>
-<a href = "https://twitter.com/{{$user_data->screen_name}}"><img src = "{{asset('img/Twitter_Logo_Blue.png')}}" style = "width: 50px; height: 50px;"></a>
-<hr>
-@endforeach
+  <div class="each-box">
+    <div class="data-container">
+      <img src = "{{$user_data->profile_image_url}}">
+      <div class="user-name">
+       {{$user_data->name}}
+      </div>
+      <a href = "https://twitter.com/{{$user_data->screen_name}}">
+        <img src = "{{asset('img/Twitter_Logo_Blue.png')}}" class ="logo">
+      </a>
+    </div>
+    <div class="details">
+        <span>＠{{$user_data->screen_name}}<br></span>
+        <span>ツイート数：{{$user_data->statuses_count}}<br></span>
+        <span>フォロー数：{{$user_data->friends_count}}<br></span>
+        <span>フォロワー数：{{$user_data->followers_count}}<br></span>
+    </div>
+  </div>
+  @endforeach
+</div>
 
 @endsection
