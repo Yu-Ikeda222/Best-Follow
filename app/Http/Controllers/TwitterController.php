@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 
 class TwitterController extends Controller
 {
-    public function index()
+    public function show()
     {
-        return view('index');
+        return view('show_twitter');
     }
 
     public function store(Request $request)

@@ -13,10 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-Route::get('/' ,'TwitterController@index')->name('index');
-Route::post('/store','TwitterController@store')->name('store');
+//Top
+Route::get('/' ,'TopController@index')->name('index');
+
+//Twitter
+Route::get('/show_twitter' ,'TwitterController@show')->name('twitter.show');
+Route::post('/store_twitter','TwitterController@store')->name('twitter.store');
+
+//FaceBook
+Route::get('/show_facebook' ,'FaceBookController@show')->name('facebook.show');
+Route::post('/store_facebook','FaceBookController@store')->name('facebook.store');
+
+//Instagram
+Route::get('/show_instagram' ,'InstagramController@show')->name('instagram.show');
+Route::post('/store_instagram','InstagramController@store')->name('instagram.store');
+
 
 

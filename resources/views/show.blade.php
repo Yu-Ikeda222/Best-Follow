@@ -1,11 +1,16 @@
 @extends('layouts.app')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/twitter.css') }}">
+
+@endsection
 @section('content')
 
 {{--検索した元データ表示--}}
 <div class="input-container">
   <div class="input-data">
     @if(isset($first_data->errors))
+    <div class="errors"></div>
     @else
     <div class="container">
       <img src = "{{$first_data->profile_image_url}}">
@@ -20,10 +25,11 @@
     @endif
   </div>
 
-  <div class="input-data">
-    @if(isset($second_data->errors))
-    @else
+  <div class="input-data2">
     <div class="container">
+      @if(isset($second_data->errors))
+      <div class="input-data2"></div>
+      @else
       <img src = "{{$second_data->profile_image_url}}">
       <div class="origin">{{$second_data->name}}</div>
       <a href = "https://twitter.com/{{$second_data->screen_name}}">
@@ -36,8 +42,9 @@
     @endif
   </div>
 
-  <div class="input-data">
+  <div class="input-data3">
     @if(isset($third_data->errors))
+    <div class="input-data3"></div>
     @else
     <div class="container">
       <img src = "{{$third_data->profile_image_url}}">
