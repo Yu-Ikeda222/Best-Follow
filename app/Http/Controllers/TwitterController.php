@@ -90,11 +90,15 @@ class TwitterController extends Controller
         $usedMemory = (memory_get_peak_usage() - $initialMemory) / (1024 * 1024);
         dump('running time: ' . $runningTime . ' [s]'); // or var_dump()
         dump('used memory: ' . $usedMemory . ' [MB]'); // or var_dump()
-        return view('show', [
+        return view('show_twitter', [
             'users_data' => $users_data,
             'first_data' => $first_data,
             'second_data' => $second_data,
             'third_data' => $third_data,
         ]);
+    }
+
+    public function show_js() {
+        return view('show_twitter_js');
     }
 }

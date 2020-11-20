@@ -176,6 +176,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         // TwitterOAuth
         App\Providers\TwitterServiceProvider::class,
+        // CORS
+        Barryvdh\Cors\ServiceProvider::class,
     ],
 
     /*

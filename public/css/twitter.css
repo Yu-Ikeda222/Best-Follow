@@ -87,18 +87,18 @@ input {
 
 .input-data {
   width: 30%;
-  border: solid 1px;
-  border-radius: 100vh;
+  /* border: solid 1px; */
+  /* border-radius: 100vh; */
 }
 .input-data2 {
   width: 30%;
-  border: solid 1px;
-  border-radius: 100vh;
+  /* border: solid 1px;
+  border-radius: 100vh; */
 }
 .input-data3 {
   width: 30%;
-  border: solid 1px;
-  border-radius: 100vh;
+  /* border: solid 1px;
+  border-radius: 100vh; */
 }
 
 h2 {
@@ -118,6 +118,7 @@ h2 {
   height: fit-content;
   margin: auto;
   text-overflow: ellipsis;
+  text-align: center;
 }
 
 .origin-screen-name {

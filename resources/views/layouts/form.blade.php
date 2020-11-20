@@ -1,4 +1,3 @@
-<form method="post" action="{{route('twitter.store')}}">
   @csrf
   <div class="input">
     <input name="first_box" placeholder="@"><br>

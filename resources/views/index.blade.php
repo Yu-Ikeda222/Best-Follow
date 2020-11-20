@@ -6,8 +6,8 @@
 
     <ul >
       <li><a href="{{route('twitter.show')}}">Twitter</a></li>
-      <li><a href="">FaceBook</a></li>
-      <li><a href="{{route('twitter.show')}}">Instagram</a></li>
+      <li><a href="{{route('facebook.show')}}">FaceBook</a></li>
+      <li><a href="{{route('instagram.show')}}">Instagram</a></li>
     </ul>
 
 
