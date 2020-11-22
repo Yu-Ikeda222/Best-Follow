@@ -29,6 +29,7 @@ class TwitterController extends Controller
         
         //FirstBoxのフレンドを取得(5000ずつ単位でcursorが生成されるので、cursorが０でない限りループ)
         $first_friend_data = \Twitter::get('friends/ids', ['screen_name' => $first]);
+        //dd($first_friend_data);
         $first_friend_ids = $first_friend_data->ids;
         $first_cursor = $first_friend_data->next_cursor;
         while ($first_cursor !== 0) {

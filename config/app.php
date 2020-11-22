@@ -161,6 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        App\Providers\FacebookServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -176,8 +177,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         // TwitterOAuth
         App\Providers\TwitterServiceProvider::class,
-        // CORS
-        Barryvdh\Cors\ServiceProvider::class,
+        
     ],
 
     /*
@@ -230,6 +230,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Twitter' => App\Facades\Twitter::class,
+        'FaceBook' => App\Facades\FaceBook::class,
 
     ],
 
