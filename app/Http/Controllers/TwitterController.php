@@ -22,6 +22,13 @@ class TwitterController extends Controller
         $startTime = microtime(true);
         $initialMemory = memory_get_usage();
 
+        //validation
+        $request->validate([
+            'first_box' => 'required',
+            'second_box' => 'required',
+        ]);
+        
+
         //各検索ボックスから送られてきた値を変数に
         $first = $request->first_box;
         $second = $request->second_box;
@@ -30,6 +37,8 @@ class TwitterController extends Controller
         //FirstBoxのフレンドを取得(5000ずつ単位でcursorが生成されるので、cursorが０でない限りループ)
         $first_friend_data = \Twitter::get('friends/ids', ['screen_name' => $first]);
         //dd($first_friend_data);
+
+        if ($first_friend_data)
         $first_friend_ids = $first_friend_data->ids;
         $first_cursor = $first_friend_data->next_cursor;
         while ($first_cursor !== 0) {

@@ -3,10 +3,11 @@
 <link rel="stylesheet" href="{{ asset('css/twitter.css') }}">
 @endsection
 @section('content')
+
+
 <nav>
     <ul>
       <li><a href="{{route('twitter.show')}}">Twitter(laravel)</a></li>
-      <li><a href="{{route('twitter.js')}}">Twitter(JavaScript)</a></li>
     </ul>
 </nav>
 
